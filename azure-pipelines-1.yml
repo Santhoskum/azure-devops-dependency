@@ -16,15 +16,11 @@ stages:
         steps:
         - script: echo job a complete
   - stage: B
-    condition: failed()
     jobs:
       - job: jobB
         steps:
         - script: echo job b complete
   - stage: C
-    dependsOn: 
-    - A
-    - B
     condition: succeeded('B')
     jobs:
       - job: jobC
