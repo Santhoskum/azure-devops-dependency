@@ -41,9 +41,7 @@ stages:
           - script: echo deploying the backend application to the dev environment
             displayName: deploying the backend application to the dev environment
   - stage: deployToProd
-    dependsOn: 
-    - buildApp
-    - deployToDev       
+    dependsOn: buildApp       
     displayName: deploy to prod environment
     jobs:
       - job: deployFrontEndToProd
@@ -56,3 +54,19 @@ stages:
         steps:
           - script: echo deploying the backend application to the prod environment
             displayName: deploying the backend application to the prod environment
+  - stage: deployToUS
+    dependsOn: 
+    - deployToDev
+    - deployToProd       
+    displayName: deploy to US environment
+    jobs:
+      - job: deployFrontEndToUS
+        displayName: deploy frontend application to US
+        steps:
+          - script: echo deploying the frontend application to the US environment
+            displayName: deploying the frontend application to the US environment
+      - job: deployBackEndToUS
+        displayName: deploy backend application to US
+        steps:
+          - script: echo deploying the backend application to the US environment
+            displayName: deploying the backend application to the US environment
