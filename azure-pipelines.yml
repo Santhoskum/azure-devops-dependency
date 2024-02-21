@@ -41,9 +41,7 @@ stages:
           - script: echo deploying the backend application to the dev environment
             displayName: deploying the backend application to the dev environment
   - stage: deployToProd
-    dependsOn: 
-    - buildApp
-    - deployToDev         -
+    dependsOn: buildApp       -
     displayName: deploy to prod environment
     jobs:
       - job: deployFrontEndToProd
