@@ -26,4 +26,8 @@ stages:
     - A
     - B
     condition: succeeded('B')
+    jobs:
+      - job: jobC
+        steps:
+        - script: echo job c complete
 
