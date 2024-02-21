@@ -1,0 +1,58 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+stages:
+  - stage: buildApp
+    displayName: build the Application
+    jobs:
+    - job: buildFrontEnd
+      displayName: build the frontend
+      steps:
+        - script: echo building the frontend application
+          displayName: building front end
+        - script: echo unit tests running on frontend application
+          displayName: unit testing front end
+    - job: buildBackEnd
+      displayName: build the Backend
+      steps:
+        - script: echo building the backend application
+          displayName: building back end
+        - script: echo unit tests running on  the backend application
+          displayName: unit testing back end
+  - stage: deploy to dev
+    dependsOn: buildApp
+    displayName: deploy to dev environment
+    jobs:
+      - job: deployFrontEndToDev
+        displayName: deploy frontend application to dev
+        steps:
+          - script: echo deploying the frontend application to the dev environment
+            displayName: deploying the frontend application to the dev environment
+      - job: deployBackEndToDev
+        displayName: deploy backend application to dev
+        steps:
+          - script: echo deploying the backend application to the dev environment
+            displayName: deploying the backend application to the dev environment
+  - stage: deploy to prod
+    dependsOn: 
+    - buildApp
+    - deploy to dev         -
+    displayName: deploy to prod environment
+    jobs:
+      - job: deployFrontEndToProd
+        displayName: deploy frontend application to prod
+        steps:
+          - script: echo deploying the frontend application to the prod environment
+            displayName: deploying the frontend application to the prod environment
+      - job: deployBackEndToProd
+        displayName: deploy backend application to prod
+        steps:
+          - script: echo deploying the backend application to the prod environment
+            displayName: deploying the backend application to the prod environment
